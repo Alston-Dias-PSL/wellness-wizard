@@ -1,8 +1,7 @@
 import requests
 import datetime
-import hashlib
 
-from ca_config import DB_CONNECTION_STRING, DB_PASSWORD, DB_USERNAME, logger
+from .ca_config import DB_CONNECTION_STRING, DB_PASSWORD, DB_USERNAME, logger
 
 class DatabaseWrapper:
     def __init__(self) -> None:
@@ -14,7 +13,7 @@ class DatabaseWrapper:
         }
     
     def intialize_view(self, database):
-        return self.session.put(f"{DB_CONNECTION_STRING}/{database}/_dedign/default",
+        return self.session.put(f"{DB_CONNECTION_STRING}/{database}/_design/default",
                                 headers=self.headers,
                                 json={
                                     "views":{
@@ -108,21 +107,11 @@ class DatabaseWrapper:
                 # Need a creation_date and modification_date for record
                 data["creation_date"] = str(datetime.datetime.utcnow())
                 data["modification_date"] = str(datetime.datetime.utcnow())
-                try:
-                    if 'package_name' in data and 'package_version' in data:
-                        data['_id'] = self.get_id(database, data['package_name'], data['package_version'])
-                except KeyError as ke:
-                    logger.error(ke)
                 response = self.session.post(f"{DB_CONNECTION_STRING}/{database}", headers=self.headers, json=data)
             if operation == "read":
                 response = self.session.get(f"{DB_CONNECTION_STRING}/{path}/{document}", headers=self.headers, params=data)
             if operation == "update":
                 data["modification_date"] = str(datetime.datetime.utcnow())
-                try:
-                    if 'package_name' in data and 'package_version' in data:
-                        data['_id'] = self.get_id(database, data['package_name'], data['package_version'])
-                except KeyError as ke:
-                    logger.error(ke)
                 response = self.session.put(f"{DB_CONNECTION_STRING}/{path}/{document}", headers=self.headers, json=data)
             if operation == "delete":
                 response = self.session.delete(f"{DB_CONNECTION_STRING}/{path}/{document}?rev={rev}", headers=self.headers)
@@ -132,7 +121,7 @@ class DatabaseWrapper:
             return { "status_code": e.response.status_code, "content": e.response.json() }
 
     # Convenience Functions
-    def database_create(self, database, partition = "default") -> tuple:
+    def database_create(self, database, partition = None) -> tuple:
         """
         CREATE operation: Adds a new database
         ---
@@ -140,9 +129,9 @@ class DatabaseWrapper:
         'database': Name of DATABASE to be created
         partitioned: Flag whether the datbase needs partitioning or not.
         """
-        return self.query_database(operation="create", database = database, query = {"partitioned": "true"})
+        return self.query_database(operation="create", database = database, query = {"partitioned": "false"})
 
-    def database_read(self, database, partition = "default") -> tuple:
+    def database_read(self, database, partition = None) -> tuple:
         """
         READ Operation: Fetches database information
         ---
@@ -160,7 +149,7 @@ class DatabaseWrapper:
         """
         return self.query_database(operation="delete", database=database)
 
-    def database_find(self, database, query, partition = "default") -> tuple:
+    def database_find(self, database, query, partition = None) -> tuple:
         """
         FIND: Search for document(s) matching supplied query
         ---
@@ -185,7 +174,7 @@ class DatabaseWrapper:
         """
         return self.query_database(operation="filter", database=database, query=query)
 
-    def database_truncate(self, database, partition = "default") -> tuple:
+    def database_truncate(self, database, partition = None) -> tuple:
         """
         TRUNCATE: Remove all documents from a database except design documents
         ---
@@ -200,7 +189,7 @@ class DatabaseWrapper:
             return self.query_database(operation="", database=database, partition=partition, query=data, bulk=True)
         return read_result
 
-    def document_upsert(self, database, data, partition = "default") -> tuple:
+    def document_upsert(self, database, data, partition = None) -> tuple:
         """
         Bulk Upsert Documents: Insert or Update in Bulk
         ---
@@ -211,7 +200,7 @@ class DatabaseWrapper:
         """
         return self.query_database(operation="", database=database, partition=partition, query=data, bulk=True)
 
-    def document_create(self, database, data, partition = "default") -> tuple:
+    def document_create(self, database, data, partition = None) -> tuple:
         """
         CREATE operation: Adds new document to database
         Args:
@@ -221,7 +210,7 @@ class DatabaseWrapper:
         """
         return self.query_document(operation="create", database=database, partition=partition, data=data)
 
-    def document_read(self, database, document="_design/default/_view/default", data="", partition = "default") -> tuple:
+    def document_read(self, database, document="_design/default/_view/default", data="", partition = None) -> tuple:
         """
         READ Operation: Fetches document(s) from database
         ---
@@ -252,4 +241,8 @@ class DatabaseWrapper:
         'document': ID of document to be deleted
         'rev': Must have the most recent rev(revision) value
         """
-        return self.query_document(operation="delete", database=database, partition=partition, document=document, rev=rev)    
+        return self.query_document(operation="delete", database=database, partition=partition, document=document, rev=rev)
+
+    @staticmethod
+    def get_list_from_content(content):
+        return list(map(lambda doc: doc["doc"] if "doc" in doc else doc["value"], content))    
