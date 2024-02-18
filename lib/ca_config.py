@@ -24,10 +24,16 @@ try:
         json_data = json.load(json_file)
 except FileNotFoundError as fne:
     json_data = {
-        "db_connection_string": os.environ.get("db_connection_string", "http://localhost:5984"),
-        "db_username": os.environ.get("db_username", "semicolons"),
-        "db_password": os.environ.get("db_password", "alstondias")
+        "DB_CONNECTION_STRING": os.environ.get("db_connection_string", "http://localhost:5984"),
+        "DB_USERNAME": os.environ.get("db_username", "semicolons"),
+        "DB_PASSWORD": os.environ.get("db_password", "alstondias")
     }
+# Required Databased
+REQUIRED_DBS = {
+    "user_info": "false",
+    "user_session": "false"
+}
+
 # Databse configurations
 DB_CONNECTION_STRING = json_data["DB_CONNECTION_STRING"]
 DB_USERNAME = json_data["DB_USERNAME"]
