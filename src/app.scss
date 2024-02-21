@@ -1,0 +1,18 @@
+@use '@carbon/react' with (
+  $use-flexbox-grid: true,
+  $css--default-type: true
+);
+@use '@carbon/styles/scss/theme';
+@use '@carbon/styles/scss/themes';
+
+@use './components/NavBar/nav-bar';
+@use './components/UserLogin/user-login';
+@use './components/ReportSummary/report-summary';
+
+:root[data-carbon-theme="g10"] {
+    @include theme.theme(themes.$g10);
+}
+  
+:root[data-carbon-theme="g100"] {
+    @include theme.theme(themes.$g100);
+}
