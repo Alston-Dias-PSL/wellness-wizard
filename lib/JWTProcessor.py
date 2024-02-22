@@ -28,7 +28,7 @@ class JWTProcessor:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, 
                                 detail="Incorrect username or password",
                                 headers={"WWW-Authenticate": "Bearer"})
-        access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRES_IN)
+        access_token_expires = timedelta(hours=ACCESS_TOKEN_EXPIRES_IN)
         access_token = self.create_access_token(data={"sub": user["username"]}, expires_delta=access_token_expires)
         return {
             "username": user["username"],
