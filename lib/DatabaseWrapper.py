@@ -1,5 +1,6 @@
 import requests
 import datetime
+import hashlib
 
 from .ca_config import DB_CONNECTION_STRING, DB_PASSWORD, DB_USERNAME, logger
 
@@ -11,6 +12,10 @@ class DatabaseWrapper:
             "Accept": "application/json",
             "Content-type": "application/json",
         }
+    
+    def get_id(self, database, username, additional_param = ''):
+        id_text = f"{database}{username}{additional_param}"
+        return f"{hashlib.md5(id_text.encode()).hexdigest()}"
     
     def intialize_view(self, database):
         return self.session.put(f"{DB_CONNECTION_STRING}/{database}/_design/default",

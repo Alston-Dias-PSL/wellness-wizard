@@ -15,6 +15,7 @@ from pydantic import BaseModel
 
 from Processor import Processor
 from lib.DatabaseWrapper import DatabaseWrapper
+from lib.SessionManagement import SessioManagement
 from lib.ca_config import ip_address, DEFAULT_SERVER_PORT, DEFAULT_UI_PORT
 
 CORS_ORIGINS = [
@@ -29,6 +30,7 @@ CORS_ORIGINS = [
 app = FastAPI()
 processor = Processor()
 database_wrapper = DatabaseWrapper()
+session_management = SessioManagement()
 
 app.add_middleware(
     CORSMiddleware,
@@ -60,3 +62,27 @@ def create_user(first_name, last_name, address_line1, city, state, country, pinc
         email=email, 
         contact_number=contact_number
     )
+
+@app.get("/user-login/")
+def user_login(username, password):
+    user_session = processor.user_login(username=username, password=password)
+    if user_session:
+        session_management.update_session_info(session_data=user_session)
+        return{
+            "access_token": user_session["access_token"]
+        } 
+    else:
+        raise HTTPException(status_code=404, detail="Invalid Creds")
+    
+@app.get("/get-user/")
+def get_users(token):
+    if processor.validate_jwt_token(token):
+        return{
+            "Validated": "Yaaahh!!! you are validated"
+        }
+    else:
+        raise HTTPException(status_code=401, detail="Access token expired. please re-login to continue")
+    
+
+
+   

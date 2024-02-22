@@ -4,12 +4,16 @@ import requests
 import random
 import string
 
+from fastapi import HTTPException
+
 from .ca_config import *
 from .DatabaseWrapper import DatabaseWrapper
 from passlib.context import CryptContext
+from .SessionManagement import SessioManagement
 
 class UserInfoProcessor:
     database_wrappeer = DatabaseWrapper()
+    session_management = SessioManagement()
     user_collection_name = "user_info"
     pwd_contxt = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -52,4 +56,25 @@ class UserInfoProcessor:
         )
         if data["status_code"] < 400:
             return self.database_wrappeer.get_list_from_content(data["content"]["rows"])
-
+    
+    def get_user_by_username(self, username):
+        data = self.get_users()
+        for user in data:
+            if username == user["username"]:
+                return user
+    
+    def verify_password(self, plain_passeword, hashed_password):
+        return self.pwd_contxt.verify(plain_passeword, hashed_password)
+    
+    def user_login(self, username, password):
+        user = self.get_user_by_username(username=username)
+        if user:
+            passwd = self.verify_password(password, user["password"])
+            if passwd:
+                return user
+            else:
+                raise HTTPException(status_code=400, detail="username or password do not match")
+        else:
+            raise HTTPException(status_code=404, detail=f"user with {username} not found")
+        
+    
