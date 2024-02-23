@@ -1,11 +1,12 @@
 import { Breadcrumb, BreadcrumbItem, Column, FlexGrid, Grid, Row, Stack, Tag, TextInput } from "@carbon/react";
 import { CheckmarkFilled} from '@carbon/icons-react';
 import {FirstAid, SocialWork_02} from '@carbon/pictograms-react';
-
+import backgroundImage from './syringe-1884784_1280.jpg'
 export default function Profile() {
     return(
-        <div className="profile-padding profile-img">
-            <h3 style={{paddingInlineStart:'2rem',paddingBottom:'4rem'}}>My Profile</h3>
+        <div className="profile-padding">
+            <div style={{backgroundColor:'rgba(256 , 256,256,0.5)'}}>
+            <h3 style={{padding:'2rem',color:'black'}}>My Profile</h3>
             <Grid>
                 <Column lg={8} className="column1">
                     <Stack gap={7}>
@@ -41,9 +42,9 @@ export default function Profile() {
                         </Column>
                     </Grid>
                     */}
-                </Column>
-                
+                </Column>   
             </Grid>
+            </div>
         </div>
     )
 }

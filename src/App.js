@@ -33,7 +33,7 @@ function App() {
                     <Route index element={<UserLogin/>} />
                     <Route path='/login' element={<UserLogin/>} />
                     <Route path='/signup'element={<Signup/>}/>
-                    <Route path='/Profile' element={<Profile/>}/>
+                    <Route path='/profile' element={<Profile/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>
