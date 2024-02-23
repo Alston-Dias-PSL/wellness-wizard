@@ -1,0 +1,35 @@
+.profile-padding{
+    padding: 2rem;
+    padding-top: 6rem;
+}
+.profile-img{
+    background-image: url('./syringe-1884784_1280.jpg');
+}
+.column1{
+    background-color: #dbebff;
+    color: black;
+    padding: 3rem;
+    width: max-content;
+}
+.column2{
+    background-color: #dbebff;
+    color: black;
+    width: max-content;
+    height: max-content;
+    padding: 1rem;
+}
+.column3{
+    background-color: unset;
+}
+.firstaid{
+    height: 90px;
+    width: 90px;
+    fill: red;
+}
+
+.cds--label {
+    color: unset;
+}
+.cds--form--fluid .cds--text-input-wrapper--readonly, .cds--text-input-wrapper--readonly .cds--text-input {
+    background: #dde1e6;
+}

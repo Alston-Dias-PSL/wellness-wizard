@@ -1,0 +1,19 @@
+@use '@carbon/type';
+
+.Link-style{
+    @include type.type-style('body-compact-01');
+    text-decoration: none;
+    color: unset;
+}
+
+.cds--header-panel--expanded {
+    block-size: 10rem;
+    inline-size: 14rem;
+    padding: 1rem;
+}
+
+.logout-button{
+    bottom: 0;
+    position: absolute;
+    padding-bottom: 1rem;
+}
