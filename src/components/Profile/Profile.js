@@ -4,7 +4,7 @@ import {FirstAid, SocialWork_02} from '@carbon/pictograms-react';
 
 export default function Profile() {
     return(
-        <div className="profile-padding">
+        <div className="profile-padding profile-img">
             <h3 style={{paddingInlineStart:'2rem',paddingBottom:'4rem'}}>My Profile</h3>
             <Grid>
                 <Column lg={8} className="column1">
@@ -34,6 +34,13 @@ export default function Profile() {
                     </div>
                         </Column>
                     </Grid>
+                    {/*
+                    <Grid>
+                        <Column span={4} style={{padding:'3rem'}}>
+                            <img style={{width:'300px'}} src={'/images/ehr-1476525_1280.png'}/>
+                        </Column>
+                    </Grid>
+                    */}
                 </Column>
                 
             </Grid>
