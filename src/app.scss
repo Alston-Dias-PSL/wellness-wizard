@@ -8,6 +8,7 @@
 @use './components/NavBar/nav-bar';
 @use './components/UserLogin/user-login';
 @use './components/ReportSummary/report-summary';
+@use './components/Profile/profile';
 
 :root[data-carbon-theme="g10"] {
     @include theme.theme(themes.$g10);

@@ -30,16 +30,14 @@ export default function NavBar({setTheme}) {
                         </HeaderGlobalBar>
                         <HeaderPanel expanded={isProfileExpanded}>
                             <h4 style={{paddingBottom:'1rem'}}>User name</h4>
-                            <NavLink style={{alignItems:'center', display:'flex'}} className='Link-style' to='/profile'>Go to your profile &nbsp;<FaceMask/> </NavLink>
+                            <NavLink style={{alignItems:'center', display:'flex'}} className='Link-style' to='/Profile'>Go to your profile &nbsp;<FaceMask/> </NavLink>
                             <div>
                             <Link href='#' size='lg' className='logout-button' renderIcon={Logout}>Logout</Link>
                             </div>
-                            
                         </HeaderPanel>
                     </Header>
                     <SideNav expanded={isSideNavExpanded} aria-label="Side navigation" onSideNavBlur={onClickSideNavExpand} isPersistent={false} href="#main-content">
                         <SideNavItems>
-                            
                             <SideNavLink renderIcon={Report}><NavLink className='Link-style' to='/report-summary'>Report summary</NavLink></SideNavLink>
                             <SideNavLink renderIcon={IbmTelehealth}><NavLink className='Link-style' to='/doctors'>Doctors</NavLink></SideNavLink>
                             <SideNavLink renderIcon={IbmWatsonSpeechToText}><NavLink  className='Link-style' to='/patient-transcript'>Patient transcript</NavLink></SideNavLink>
