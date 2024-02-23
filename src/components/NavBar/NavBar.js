@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import { Header, HeaderContainer, HeaderGlobalBar, HeaderName, HeaderGlobalAction, SkipToContent, HeaderMenuButton, Theme, HeaderPanel, SideNav, SideNavLink, SideNavItems } from "@carbon/react";
-import {UserAvatarFilledAlt, Events, BrightnessContrast, Logout, Login, Report, IbmTelehealth, IbmWatsonSpeechToText, Category} from '@carbon/icons-react';
+import { NavLink, Outlet } from 'react-router-dom';
+import { Link, Header, HeaderContainer, HeaderGlobalBar, HeaderName, HeaderGlobalAction, SkipToContent, HeaderMenuButton, Theme, HeaderPanel, SideNav, SideNavLink, SideNavItems } from "@carbon/react";
+import {UserAvatarFilledAlt, Events, BrightnessContrast, Logout, Login, Report, IbmTelehealth, IbmWatsonSpeechToText, Category, FaceMask} from '@carbon/icons-react';
 
 export default function NavBar({setTheme}) {
     const [isProfileExpanded, setIsProfileExpanded] = useState(false);
@@ -30,16 +30,21 @@ export default function NavBar({setTheme}) {
                         </HeaderGlobalBar>
                         <HeaderPanel expanded={isProfileExpanded}>
                             <h4 style={{paddingBottom:'1rem'}}>User name</h4>
-                            <Link renderIcon={Logout}>Logout</Link>
+                            <NavLink style={{alignItems:'center', display:'flex'}} className='Link-style' to='/profile'>Go to your profile &nbsp;<FaceMask/> </NavLink>
+                            <div>
+                            <Link href='#' size='lg' className='logout-button' renderIcon={Logout}>Logout</Link>
+                            </div>
+                            
                         </HeaderPanel>
                     </Header>
                     <SideNav expanded={isSideNavExpanded} aria-label="Side navigation" onSideNavBlur={onClickSideNavExpand} isPersistent={false} href="#main-content">
                         <SideNavItems>
-                            <SideNavLink renderIcon={Report} href="/report-summary">Report summary</SideNavLink>
-                            <SideNavLink renderIcon={IbmTelehealth} href='/doctors'>Doctors</SideNavLink>
-                            <SideNavLink renderIcon={IbmWatsonSpeechToText} href='patient-transcript'>Patient transcript</SideNavLink>
-                            <SideNavLink renderIcon={Category} href='/disease-categorizer'>Disease categorizer</SideNavLink>
-                            <SideNavLink renderIcon={Events} href="about-us">About us</SideNavLink>
+                            
+                            <SideNavLink renderIcon={Report}><NavLink className='Link-style' to='/report-summary'>Report summary</NavLink></SideNavLink>
+                            <SideNavLink renderIcon={IbmTelehealth}><NavLink className='Link-style' to='/doctors'>Doctors</NavLink></SideNavLink>
+                            <SideNavLink renderIcon={IbmWatsonSpeechToText}><NavLink  className='Link-style' to='/patient-transcript'>Patient transcript</NavLink></SideNavLink>
+                            <SideNavLink renderIcon={Category}><NavLink className='Link-style' to='/disease-categorizer'>Disease categorizer</NavLink></SideNavLink>
+                            <SideNavLink renderIcon={Events} ><NavLink className='Link-style' to='/about-us'>About us</NavLink></SideNavLink>
                         </SideNavItems>
                     </SideNav>
                 </Theme>

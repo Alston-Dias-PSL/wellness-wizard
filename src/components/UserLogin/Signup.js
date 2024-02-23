@@ -1,10 +1,13 @@
-import { Button, Form, Stack, TextInput, Link, InlineLoading, InlineNotification } from "@carbon/react"
+import { Button, Form, Stack, TextInput, Link, InlineLoading, InlineNotification, Grid, Column, FlexGrid, Row } from "@carbon/react"
 import { useState } from "react"
 
 export default function Signup(){
-    const [userName, setUserName] = useState('');
-    const [password, setPassword] = useState('');
+    const [fname, setFname] = useState('');
+    const [lname, setLname] = useState('');
+    const [address, setAddress] = useState('');
+    const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
+    const [password, setPassword] = useState('');
     const isValidPhone= /^[0-9]{10}$/.test(phoneNumber);
     const isValidPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password)
 
@@ -15,24 +18,30 @@ export default function Signup(){
 
     const HandleSignup= (e) => {
         e.preventDefault();
-        console.log(userName)
-        console.log(password)
-        console.log(phoneNumber)
-        console.log(isValidPassword)
-        console.log(isValidPhone)
         setIsSubmitting(true);
         setStatus('active');
         setAriaLive('assertive');
     }
     return(
         <div className="user-login-padding">
+            <Grid>
+            <Column md={8}>   
             <Form className='login-form' onSubmit={HandleSignup}>
                 <Stack gap={7}>
                     <div>
                         <h3>Log in</h3>
                         <div style={{paddingTop:'5px'}}>Already have an account? <Link href="/login">Log in</Link></div>
                     </div>
-                    <TextInput labelText='Full name' id="name" value={userName} onChange={(e)=>setUserName(e.target.value)} required/>
+                    <Grid>
+                        <Column sm={4}>
+                        <TextInput labelText='First name' id="fname" value={fname} onChange={(e)=>setFname(e.target.value)} required/>
+                        </Column>
+                        <Column sm={4}>
+                        <TextInput labelText='First name' id="lname" value={lname} onChange={(e)=>setLname(e.target.value)} required/>
+                        </Column>
+                    </Grid>
+                    <TextInput labelText='Address' id="address" value={address} onChange={(e)=>setAddress(e.target.value)} required/>
+                    <TextInput labelText='Email ID' id="email" value={email} onChange={(e)=>setEmail(e.target.value)} required/>
                     <TextInput labelText="Phone number" type="tel" id="phone" 
                     invalid={!isValidPhone}
                     pattern="[0-9]{10}"
@@ -70,6 +79,8 @@ export default function Signup(){
                     }
                 </Stack>
             </Form>
+            </Column>
+            </Grid>
         </div>
     )
 }
