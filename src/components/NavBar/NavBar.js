@@ -3,7 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { Link, Header, HeaderContainer, HeaderGlobalBar, HeaderName, HeaderGlobalAction, SkipToContent, HeaderMenuButton, Theme, HeaderPanel, SideNav, SideNavLink, SideNavItems } from "@carbon/react";
 import {UserAvatarFilledAlt, Events, BrightnessContrast, Logout, Login, Report, IbmTelehealth, IbmWatsonSpeechToText, Category, FaceMask} from '@carbon/icons-react';
 
-export default function NavBar({setTheme}) {
+export default function NavBar({cookies, setCookie, removeCookie, setTheme}) {
     const [isProfileExpanded, setIsProfileExpanded] = useState(false);
     const [navbarMode, setNavbarMode] = useState('g90');
     const [isLogin, setIsLogin] = useState(true);
@@ -30,9 +30,9 @@ export default function NavBar({setTheme}) {
                         </HeaderGlobalBar>
                         <HeaderPanel expanded={isProfileExpanded}>
                             <h4 style={{paddingBottom:'1rem'}}>User name</h4>
-                            <NavLink style={{alignItems:'center', display:'flex'}} className='Link-style' to='/Profile'>Go to your profile &nbsp;<FaceMask/> </NavLink>
+                            <NavLink style={{alignItems:'center', display:'flex'}} className='Link-style-color' to='/profile'>Go to my profile &nbsp;<FaceMask/> </NavLink>
                             <div>
-                            <Link href='#' size='lg' className='logout-button' renderIcon={Logout}>Logout</Link>
+                            <Link href='#' size='lg' className='logout-button' renderIcon={Login}>Login</Link>
                             </div>
                         </HeaderPanel>
                     </Header>

@@ -6,6 +6,12 @@
     color: unset;
 }
 
+.Link-style-color{
+    @include type.type-style('body-compact-01');
+    text-decoration: none;
+    color: #0F62FE
+}
+
 .cds--header-panel--expanded {
     block-size: 10rem;
     inline-size: 14rem;
