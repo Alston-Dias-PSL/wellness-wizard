@@ -14,44 +14,25 @@ environment_id="aab9c6f5-88eb-4c94-ac1b-5928945f5134"
 
 session = assistant.create_session(environment_id).get_result()
 
-# response = assistant.message(
-#     assistant_id=environment_id,
-#     session_id=session["session_id"],
-#     input={
-#         'message_type': 'text', 
-#         'text': 'Book'
-#     }
-# ).get_result()
 
-
-
-response=assistant.message(
-    assistant_id=environment_id,
-    session_id=session["session_id"],
-    input={
-        'message_type': 'text',
-        'text': 'Hi',
-        'options': {
-            'return_context': True
+def send_message(message):
+    response = assistant.message(
+        assistant_id=environment_id,
+        session_id=session["session_id"],
+        input={
+            'message_type': 'text', 
+            'text': message,
         }
-    },
-    context={
-        'global': {
-            'system': {
-                'user_id': '16b77c1a1f7d45cd89aeed8a6212d604'
-            }
-        },
-        'skills': {
-            'main skill': {
-                'user_defined': {
-                    'account_number': '2754586'
-                }
-            }
-        }
-    }
-).get_result()
+    ).get_result()
 
 
-print(response["output"]["generic"][0]["text"])
+    return response["output"]["generic"][0]["text"]
+
+
+user_input = input("Hello, How can I help you today?")
+while user_input.lower() != "thank you":
+    response = send_message(user_input)
+    print("WatsonX Assistant: ", response)
+    user_input = input("Enter your message:")
 
 # print(json.dumps(response, indent=2))
