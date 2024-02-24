@@ -1,25 +1,30 @@
-import { FormItem, FileUploaderDropContainer, Grid, Column, FileUploaderItem, Button } from "@carbon/react"
-import { useState, useEffect } from "react"
+import { FormItem, FileUploaderDropContainer, Grid, Column, FileUploaderItem, Button } from "@carbon/react";
+import { CloudUpload } from "@carbon/pictograms-react";
+import {ReminderMedical, Rocket} from '@carbon/icons-react';
+import { useState, useEffect } from "react";
 
-function CursorSVG() {
-    return (
-      <svg
-        viewBox="8 4 8 16"
-        xmlns="http://www.w3.org/2000/svg"
-        className="cursor"
-      >
-        <rect x="10" y="6" width="4" height="12" fill="#fff" />
-      </svg>
-    );
-}
+const chatResponse = "Assesment and Plan Mary Smith aged 68 has been diagnosed with metastatic \
+breast cancer. She has recieved chemotherapy, radiation therapy and surgical intervention to manage \
+a disease, but is declining in function and experiencing increased symptoms everyday. She wishes to \
+spend her remaining time at home surrounded by family. Her medical support plan includes optimising \
+analgesic therapy, addressing other symptoms, and providing emotional and psychological support"
+
+const fileContent = "Chief Complaint:\
+The patient presents with a one-week history of persistent headache and occasional dizziness.\
+History of Present Illness:\
+Mr. Doe reports the onset of a dull, continuous headache localized to the frontal and temporal regions. He rates the pain intensity as 6/10 on a numerical scale. The headache is not alleviated by rest and is occasionally accompanied by dizziness, especially upon sudden position changes. He denies any recent head trauma, vision changes, or other focal neurological symptoms.\
+Past Medical History:\
+Hypertension, diagnosed in 2010, controlled with medication (lisinopril 20 mg daily) Allergies: None known Surgeries: Appendectomy in 1995 Medications: Lisinopril, as mentioned; no other regular medications\
+Family History:\
+Father: Hypertension Mother: Type 2 diabetes No family history of neurological disorders\
+Social History: Mr. Doe is a non-smoker and consumes alcohol occasionally. He denies any recreational drug use. He is married with two children and works as an accountant."
 
 export default function ReportSummary() {
     const [file, setFile] = useState(null);
-    const [apiResponse, setApiResponse] = useState(false);
-    const [chatHistory, setChatHistory] = useState('"You are a friendly female therapist named Casey. Your knowledge is limited to therapy. You are not able to comment on anything else. Your mission is to improve the mental well-being of anyone that talks to you."')
-    
-    const [completedTyping, setCompletedTyping] = useState(false);
-    
+    const [chatHistory, setChatHistory] = useState('Uppload a pdf or audio file of your medical report to get the summary.')
+    const [ uploadedFileContent, setUploadFileContent ] = useState('');
+    const [ isFileUploaded, setIsFileUploaded ] = useState(false);
+
     const ReturnResponse = ({response}) => {
         const [displayResponse, setDisplayResponse] = useState("");
         useEffect(() => {
@@ -37,74 +42,78 @@ export default function ReportSummary() {
         }, [response]);
 
         return(
-            <div>
+            <div className='typing-response'>
+                <div className='chat-bubble chat-bubble-font' >
                 {displayResponse}
+                </div>
             </div>
         )
     }
-
-    const handleFileChange = (e) => {
-        if (e.target.files) {
-            setFile(e.target.files[0]);
-        }
-    }
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("file....", file)
-        setApiResponse(true);
+        setChatHistory(chatResponse);
     }
 
     return(
         <div className="report-summary-padding">
-            <h3>Report Summary</h3>
-            <Grid>
-                <Column lg={8}>
-            <FormItem className="align-upload-center">
-                <p className="cds--file--label">Upload files</p>
-                <p className="cds--label-description">
-                    Max file size is 5Mb. Supported file types are .jpg and .png.
-                </p>
-                <FileUploaderDropContainer
-                    className="file-location"
-                    accept={['application/pdf','audio/mp3,audio/*']}
-                    innerRef={{current: '[Circular]'}}
-                    labelText="Drag and drop a file here or click to upload"
-                    name="{setFileName(name)}"
-                    disabled={false}
-                    multiple={false}
-                    onAddFiles={(e) => setFile(e.target.files[0])}
-                />
-                <div className="cds--file-container cds--file-container--drop" />
-            </FormItem>
-            {file &&
-            <div>
-                <div>
-                <FileUploaderItem
-                errorBody="500kb max file size. Select a new file and try again."
-                errorSubject="File size exceeds limit"
-                iconDescription="Delete file"
-                name={file.name}
-                onDelete={()=>setFile(null)}
-                size="lg"
-                status='edit'
-                />
-                </div>
-                <div>
-                    <Button style={{alignItems:'center'}} type="submit" size="md" onClick={handleSubmit}>Submit Report</Button>
-                </div>
-
-            </div>
-            }
-            </Column>
-            <Column lg={8}>
-            <div>
-                {apiResponse &&
-                <ReturnResponse response={chatHistory}/>
+            <div style={{backgroundColor:'rgba(256 , 256,256,0.5)'}}>
+            <div style={{paddingInlineStart:'2rem', color:'black', display:'inline-flex'}}><h3>Medical Report Summary</h3>&nbsp;<ReminderMedical size={32} /></div>
+            <Grid className='grid-style'>
+                <Column lg={8} className='column-1'>
+                    <FormItem className="align-upload-center">
+                        <p className="cds--file--label">Upload files</p>
+                        <p className="cds--label-description">
+                            Max file size is 5Mb. Supported file types are .jpg and .png.
+                        </p>
+                        <div>
+                        {isFileUploaded &&
+                            <div className='input-bubble' >
+                                {fileContent}
+                            </div>
+                        }
+                            <FileUploaderDropContainer
+                            className="file-location"
+                            accept={['application/pdf','audio/mp3,audio/*']}
+                            innerRef={{current: '[Circular]'}}
+                            labelText={<div>Drag and drop a file here or click to upload <CloudUpload /></div>}
+                            name=''
+                            disabled={false}
+                            multiple={false}
+                            onAddFiles={(e) => {setFile(e.target.files[0]); setChatHistory('Ssubmit to generate result');setIsFileUploaded(true);}}
+                        />
+                        </div>
+                        <div className="cds--file-container cds--file-container--drop" />
+                    </FormItem>
+                    {file &&
+                    <div style={{paddingTop:'1rem'}}>
+                        <div>
+                            <FileUploaderItem
+                                errorBody="5Mb max file size. Select a new file and try again."
+                                errorSubject="File size exceeds limit"
+                                iconDescription="Delete file"
+                                name={file.name}
+                                onDelete={()=>{setFile(null); setChatHistory('Uppload a pdf or audio file of your medical report to get the summary.');setIsFileUploaded(false);}}
+                                size="lg"
+                                status='edit'
+                            />
+                        </div>
+                    </div>
+                    }
+                </Column>
+                {isFileUploaded && 
+                <Column lg={1} className='column-2'>
+                    <Button tooltipPosition='bottom' type="submit" onClick={handleSubmit} size='lg' renderIcon={()=><Rocket size={24}/>}  iconDescription='Submit' hasIconOnly/>
+                </Column>
                 }
-            </div>
-            </Column>
+                <Column className='column-3' lg={7}>
+                    <div>
+                        <ReturnResponse response={chatHistory}/>
+                    </div>
+                </Column>
             </Grid>
+            </div>
         </div>
     )
 }
