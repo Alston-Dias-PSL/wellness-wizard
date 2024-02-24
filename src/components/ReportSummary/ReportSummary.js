@@ -26,7 +26,7 @@ import { useState, useEffect } from "react";
 // Father: Hypertension Mother: Type 2 diabetes No family history of neurological disorders\
 // Social History: Mr. Doe is a non-smoker and consumes alcohol occasionally. He denies any recreational drug use. He is married with two children and works as an accountant."
 
-export default function ReportSummary() {
+export default function ReportSummary(cookies) {
   const [file, setFile] = useState(null);
   const [chatHistory, setChatHistory] = useState(
     "Uppload a pdf or audio file of your medical report to get the summary."
@@ -66,9 +66,9 @@ export default function ReportSummary() {
     const formData = new FormData();
     formData.append("fileData", file);
     if (file.name.endsWith("pdf")) {
-      const API_NAME = "/generate-report-summary";
+      const API_NAME = "generate-report-summary";
 
-      fetch(`http://localhost:8000/${API_NAME}`, {
+      fetch(`http://localhost:8000/${API_NAME}/?token=${cookies.cookies['session_key']}`, {
         method: "POST",
         headers: {
           "Content-Type": "multipart/form-data",
@@ -90,8 +90,8 @@ export default function ReportSummary() {
           console.error("There was an error with the upload:", error);
         });
     } else {
-      const API_NAME = "/upload-audio";
-      fetch(`http://localhost:8000/{API_NAME}`, {
+      const API_NAME = "upload-audio";
+      fetch(`http://localhost:8000/${API_NAME}`, {
         method: "POST",
         headers: {
           "Content-Type": "multipart/form-data",
