@@ -1,19 +1,66 @@
 .report-summary-padding{
     padding: 2rem;
     padding-top: 6rem;
+    background-image: url('./syringe-1884784_1280.jpg');
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
 }
-/*.align-upload-center, .cds--file__drop-container{
+.cds--label-description {
+    font-size: 1rem;
+    color: black;
+}
+.grid-style{
+    padding-top: 2rem;
+    width: 100%;
+}
+
+.cds--file__drop-container {
+    text-align: center;
+    color: #0F62FE;
+    background-color: #edf5ff;
+}
+.column-1{
+    width: max-content;
+}
+.column-2{
+    display: flex;
     align-items: center;
 }
-.cds--file{
-    display: contents;
+.column-3{
+    padding-top: 2rem;
 }
-.file-location{
-    align-items: center;
-}*/
-.cursor {
+.typing-response{
+    text-align: left;
+    padding-top: 2rem;
+    padding-inline-start: 2rem;
+}
+.chat-bubble{
+    background-color: #6f6f6f;
+    padding: 10px 15px;
+    border-radius: 10px;
     display: inline-block;
-    width: 1ch;
-    animation: flicker 0.5s infinite;
-    margin-bottom: 4px;
+    margin-bottom: 10px;
+    max-width: 100%;
+    word-wrap: break-word;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-family: monospace;
+    font-size: 15px;
+}
+.input-bubble{
+    background-color: #6f6f6f;
+    padding: 10px 15px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-bottom: 10px;
+    max-width: 100%;
+    word-wrap: break-word;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: 15px;
+    max-width: 500px;
+    height: 200px;
+    overflow-x: scroll;
 }
