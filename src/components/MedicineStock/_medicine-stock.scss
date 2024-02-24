@@ -3,8 +3,17 @@
     padding-inline-start: 4rem;
 }
 .cds--cc--axes g.axis g.tick text {
-    fill: currentColor;
+    fill: currentColor !important;
 }
 .cds--cc--axes g.axis .axis-title {
-    fill: currentColor;
+    fill: currentColor !important;
+}
+.cds--cc--chart-wrapper p{
+    color: currentColor !important;
+}
+
+.medicine-description{
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    width: 800px;
 }

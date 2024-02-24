@@ -15,7 +15,7 @@ export default function NavBar({cookies, setCookie, removeCookie, setTheme}) {
                     <Header aria-label='Wellness Wizard'>
                         <SkipToContent />
                         <HeaderMenuButton aria-label={isSideNavExpanded ? 'Close menu' : 'Open menu'} onClick={onClickSideNavExpand} isActive={isSideNavExpanded} isCollapsible />
-                        <HeaderName href="/" prefix="IBM" isCurrentPage>Wellness Wizard</HeaderName>
+                        <HeaderName href="/" prefix="Wellness Wizard" isCurrentPage></HeaderName>
                         <HeaderGlobalBar>
                             <HeaderGlobalAction aria-label="change theme" onClick={setTheme} >
                                 <BrightnessContrast size={25}/>
@@ -39,11 +39,9 @@ export default function NavBar({cookies, setCookie, removeCookie, setTheme}) {
                     <SideNav expanded={isSideNavExpanded} aria-label="Side navigation" onSideNavBlur={onClickSideNavExpand} isPersistent={false} href="#main-content">
                         <SideNavItems>
                             <SideNavLink renderIcon={Report}><NavLink className='Link-style' to='/report-summary'>Report summary</NavLink></SideNavLink>
-                            <SideNavLink renderIcon={IbmTelehealth}><NavLink className='Link-style' to='/doctors'>Doctors</NavLink></SideNavLink>
-                            <SideNavLink renderIcon={IbmWatsonSpeechToText}><NavLink  className='Link-style' to='/patient-transcript'>Patient transcript</NavLink></SideNavLink>
                             <SideNavLink renderIcon={Category}><NavLink className='Link-style' to='/disease-categorizer'>Disease categorizer</NavLink></SideNavLink>
-                            <SideNavLink renderIcon={Events} ><NavLink className='Link-style' to='/about-us'>About us</NavLink></SideNavLink>
                             <SideNavLink renderIcon={PillsAdd} ><NavLink className='Link-style' to='/medicine-stock'>Medicine stock</NavLink></SideNavLink>
+                            <SideNavLink renderIcon={Events} ><NavLink className='Link-style' to='/about-us'>About us</NavLink></SideNavLink>
                         </SideNavItems>
                     </SideNav>
                 </Theme>

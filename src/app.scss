@@ -13,6 +13,7 @@
 @use './components/Doctor/doctor';
 @use './components/Disease/disease';
 @use './components/MedicineStock/medicine-stock';
+@use './components/AboutUs/about-us';
 
 :root[data-carbon-theme="g10"] {
     @include theme.theme(themes.$g10);

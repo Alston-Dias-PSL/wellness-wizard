@@ -27,7 +27,7 @@ export default function Signup(){
             <Grid className='main-row'>
             <Column lg={8} className='signup-column verticle-line' >   
             <Form className='login-form' onSubmit={HandleSignup}>
-                <Stack gap={7}>
+                <Stack gap={4}>
                     <div>
                         <h3>Log in</h3>
                         <div style={{paddingTop:'5px'}}>Already have an account? <Link href="/login">Log in</Link></div>

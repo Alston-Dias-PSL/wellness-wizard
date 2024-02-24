@@ -11,10 +11,11 @@ import Profile from './components/Profile/Profile';
 import ReportSummary from './components/ReportSummary/ReportSummary';
 import DiseaseCategorizer from './components/DiseaseCategorizer/DiseaseCategorizer';
 import MedicineStock from './components/MedicineStock';
+import AboutUs from './components/AboutUs/AboutUs';
 
 function App() {
-    const [globaltheme,setGlobaltheme] = useState('g100');
-
+    const [globaltheme,setGlobaltheme] = useState('white');
+    const [ isLogin, setIsLogin] = useState(true);
     useEffect(() => {
         document.documentElement.dataset.carbonTheme = globaltheme;
     }, [globaltheme]);
@@ -40,6 +41,7 @@ function App() {
                     <Route path='/report-summary' element={<ReportSummary/>} />
                     <Route path='/disease-categorizer' element={<DiseaseCategorizer/>} />
                     <Route path='/medicine-stock' element={<MedicineStock/>} />
+                    <Route path='/about-us' element={<AboutUs/>} />
                 </Route>
             </Routes>
         </BrowserRouter>
