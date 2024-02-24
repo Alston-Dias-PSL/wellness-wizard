@@ -11,7 +11,7 @@ from typing import List
 import tempfile
 from pydub import AudioSegment
 from pyAudioAnalysis import audioSegmentation as aS
-from lib.ca_config import DEFAULT_TEXT_TO_PDF_LLM , DEFAULT_TEXT_TO_TRANSCRIPT_LLM1, DEFAULT_TEXT_TO_TRANSCRIPT_LLM2
+from lib.ca_config import DEFAULT_TEXT_TO_PDF_LLM , DEFAULT_TEXT_TO_TRANSCRIPT_LLM1, DEFAULT_TEXT_TO_TRANSCRIPT_LLM2, DEFAULT_TEXT_TO_AUDIO_LLM
 
 from fastapi import FastAPI, File, UploadFile, BackgroundTasks, Form, Request, Response, HTTPException
 from fastapi.responses import FileResponse, RedirectResponse, JSONResponse, HTMLResponse
@@ -127,10 +127,14 @@ async def upload_audio(token, audio_file: UploadFile = File(...)):
             temp_file_name = temp_wav_file_name
         
         text = processor.get_text_from_audio(audio_data=temp_file_name)
-        prompt_input=DEFAULT_TEXT_TO_TRANSCRIPT_LLM1 + text + DEFAULT_TEXT_TO_TRANSCRIPT_LLM2
-        transcript=processor.get_transcript_from_text(prompt_input)
+        prompt_input=DEFAULT_TEXT_TO_TRANSCRIPT_LLM1 + text["text"] + DEFAULT_TEXT_TO_TRANSCRIPT_LLM2
+        transcript=processor.get_transcript_from_text(text=prompt_input)
+        os.remove(temp_file_name)
+        transcript_new = DEFAULT_TEXT_TO_AUDIO_LLM + transcript.choices[0].message.content
+        summary = processor.generate_transcript_summary(text=transcript_new)
         return {
-            "transcript": transcript,
+            "transcript": transcript.choices[0].message.content, 
+            "summary": summary.choices[0].message.content
         }
     
     else:
@@ -152,7 +156,7 @@ async def generate_report_summary(token, files: List[UploadFile] = File(...)):
         new_pdf_text = DEFAULT_TEXT_TO_PDF_LLM + pdf_text
         response = processor.generate_report_summary(text=new_pdf_text)
         return {
-            "summary": response,
+            "summary": response.choices[0].message.content,
             "pdf_text": pdf_text
         }
     else:
