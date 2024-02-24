@@ -10,7 +10,7 @@ import Signup from './components/UserLogin/Signup';
 import Profile from './components/Profile/Profile';
 import ReportSummary from './components/ReportSummary/ReportSummary';
 import DiseaseCategorizer from './components/DiseaseCategorizer/DiseaseCategorizer';
-import LandingPage from './components/UserLogin/LandingPage';
+import MedicineStock from './components/MedicineStock';
 
 function App() {
     const [globaltheme,setGlobaltheme] = useState('g100');
@@ -39,7 +39,7 @@ function App() {
                     <Route path='/profile' element={<Profile/>}/>
                     <Route path='/report-summary' element={<ReportSummary/>} />
                     <Route path='/disease-categorizer' element={<DiseaseCategorizer/>} />
-                    <Route path='/page' element={<LandingPage/>} />
+                    <Route path='/medicine-stock' element={<MedicineStock/>} />
                 </Route>
             </Routes>
         </BrowserRouter>

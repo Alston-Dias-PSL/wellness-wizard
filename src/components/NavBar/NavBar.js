@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { Link, Header, HeaderContainer, HeaderGlobalBar, HeaderName, HeaderGlobalAction, SkipToContent, HeaderMenuButton, Theme, HeaderPanel, SideNav, SideNavLink, SideNavItems } from "@carbon/react";
-import {UserAvatarFilledAlt, Events, BrightnessContrast, Logout, Login, Report, IbmTelehealth, IbmWatsonSpeechToText, Category, FaceMask} from '@carbon/icons-react';
+import {UserAvatarFilledAlt, Events, BrightnessContrast, Logout, Login, Report, IbmTelehealth, IbmWatsonSpeechToText, Category, FaceMask, PillsAdd} from '@carbon/icons-react';
 
 export default function NavBar({cookies, setCookie, removeCookie, setTheme}) {
     const [isProfileExpanded, setIsProfileExpanded] = useState(false);
@@ -43,6 +43,7 @@ export default function NavBar({cookies, setCookie, removeCookie, setTheme}) {
                             <SideNavLink renderIcon={IbmWatsonSpeechToText}><NavLink  className='Link-style' to='/patient-transcript'>Patient transcript</NavLink></SideNavLink>
                             <SideNavLink renderIcon={Category}><NavLink className='Link-style' to='/disease-categorizer'>Disease categorizer</NavLink></SideNavLink>
                             <SideNavLink renderIcon={Events} ><NavLink className='Link-style' to='/about-us'>About us</NavLink></SideNavLink>
+                            <SideNavLink renderIcon={PillsAdd} ><NavLink className='Link-style' to='/medicine-stock'>Medicine stock</NavLink></SideNavLink>
                         </SideNavItems>
                     </SideNav>
                 </Theme>

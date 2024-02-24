@@ -12,6 +12,7 @@
 @use './components/DiseaseCategorizer/disease-categorizer';
 @use './components/Doctor/doctor';
 @use './components/Disease/disease';
+@use './components/MedicineStock/medicine-stock';
 
 :root[data-carbon-theme="g10"] {
     @include theme.theme(themes.$g10);
