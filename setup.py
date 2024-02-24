@@ -19,6 +19,14 @@ def get_jwt_secret_key():
         JWT_SECRET_KEY = input("Enter the JWT_SECRET_KEY: ")
         return JWT_SECRET_KEY
 
+def get_watsonx_info():
+    while True:
+        WATSONX_API_KEY = input("Enter WatsonX API Key: ")
+        WATSONX_URL = input("Enter WatsonX URL: ")
+        PROJECT_ID = input("Enter WatsonX Project ID: ")
+        SPACE_ID = input("Enter WatsonX Space ID: ")
+        return WATSONX_API_KEY, WATSONX_URL, PROJECT_ID, SPACE_ID
+
 def validate_db(DB_CONNECTION_STRING, DB_USERNAME, DB_PASSWORD):
     print("====== Testing Database ======")
     try:
@@ -40,11 +48,16 @@ def intialise_database():
 def get_credentials():
     DB_CONNECTION_STRING, DB_USERNAME, DB_PASSWORD = get_db()
     JWT_SECRET_KEY = get_jwt_secret_key()
+    WATSONX_API_KEY, WATSONX_URL, PROJECT_ID, SPACE_ID = get_watsonx_info()
     json_data = {
         "DB_CONNECTION_STRING": DB_CONNECTION_STRING,
         "DB_USERNAME": DB_USERNAME,
         "DB_PASSWORD": DB_PASSWORD,
-        "JWT_SECRET_KEY": JWT_SECRET_KEY
+        "JWT_SECRET_KEY": JWT_SECRET_KEY,
+        "WATSONX_API_KEY": WATSONX_API_KEY,
+        "WATSONX_URL": WATSONX_URL,
+        "PROJECT_ID": PROJECT_ID,
+        "SPACE_ID": SPACE_ID
     }
     return json_data
 
