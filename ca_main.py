@@ -125,17 +125,20 @@ async def upload_audio(token, audio_file: UploadFile = File(...)):
             temp_file_name = temp_wav_file_name
             
         # #Perom speaker diarization
-        # _, speaker_labels = aS.speaker_diarization(temp_file_name, 2)
-        # transcriptions = []
-        # for speaker_id in set(speaker_labels):
-        #     speaker_audio_file = f"{temp_file_name}_speaker_{speaker_id}.wav"
-        #     speaker_audio = AudioSegment.from_file(temp_file_name)
-        #     speaker_audio.export(speaker_audio_file, format="wav")
-        #     text = processor.get_text_from_audio(audio_data=speaker_audio_file)
-        #     transcriptions.append({"speaker_id": speaker_id, "text": text})
+            try: 
+                _, speaker_labels = aS.speaker_diarization(temp_file_name, 2)
+            except Exception as e:
+                return{"error": str(e)}
+        transcriptions = []
+        for speaker_id in set(speaker_labels):
+            speaker_audio_file = f"{temp_file_name}_speaker_{speaker_id}.wav"
+            speaker_audio = AudioSegment.from_file(temp_file_name)
+            speaker_audio.export(speaker_audio_file, format="wav")
+            text = processor.get_text_from_audio(audio_data=speaker_audio_file)
+            transcriptions.append({"speaker_id": speaker_id, "text": text})
         
-        text = processor.get_text_from_audio(audio_data=temp_file_name)
-        # return {"transcriptions": transcriptions}
-        return text
+        # text = processor.get_text_from_audio(audio_data=temp_file_name)
+        return {"transcriptions": transcriptions}
+        # return text
     else:
         raise HTTPException(status_code=401, detail="Access token expired. please re-login to continue")
