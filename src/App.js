@@ -9,6 +9,7 @@ import UserLogin from './components/UserLogin/UserLogin';
 import Signup from './components/UserLogin/Signup';
 import Profile from './components/Profile/Profile';
 import ReportSummary from './components/ReportSummary/ReportSummary';
+import DiseaseCategorizer from './components/DiseaseCategorizer/DiseaseCategorizer';
 
 function App() {
     const [globaltheme,setGlobaltheme] = useState('g100');
@@ -36,6 +37,7 @@ function App() {
                     <Route path='/signup'element={<Signup/>}/>
                     <Route path='/profile' element={<Profile/>}/>
                     <Route path='/report-summary' element={<ReportSummary/>} />
+                    <Route path='/disease-categorizer' element={<DiseaseCategorizer/>} />
                 </Route>
             </Routes>
         </BrowserRouter>

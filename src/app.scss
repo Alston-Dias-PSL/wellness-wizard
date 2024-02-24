@@ -9,6 +9,8 @@
 @use './components/UserLogin/user-login';
 @use './components/ReportSummary/report-summary';
 @use './components/Profile/profile';
+@use './components/DiseaseCategorizer/disease-categorizer';
+@use './components/Doctor/doctor';
 
 :root[data-carbon-theme="g10"] {
     @include theme.theme(themes.$g10);
