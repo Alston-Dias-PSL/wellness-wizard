@@ -53,6 +53,12 @@ export default function ReportSummary() {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("file....", file)
+        const reader = new FileReader();
+        reader.onload = (e) =>{
+            const content = e.target.result;
+            setFile(content);
+            console.log(content);
+        }
         setChatHistory(chatResponse);
     }
 
