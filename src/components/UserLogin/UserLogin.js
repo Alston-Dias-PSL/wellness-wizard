@@ -41,8 +41,8 @@ export default function UserLogin({cookies, setCookie, removeCookie}) {
     return(
         <div className="user-login-padding">
             <FlexGrid>
-                <Row>
-                    <Column lg={8}>
+                <Row className='main-row'>
+                    <Column lg={8} className='verticle-line'>
                         <Form className="login-form" onSubmit={HandleLogin}>                
                             <Stack gap={7}>  
                                 <div>
@@ -75,13 +75,12 @@ export default function UserLogin({cookies, setCookie, removeCookie}) {
                         </Form>
                     </Column>
                     <Column lg={8}>
-                        <div>
-                            <img className="user-login-img" src="images/medical-app.png" alt="Health stickers created by Stickers - Flaticon"/>
-                        </div>
-                    
-                        <div style={{paddingTop:'2rem'}}>
+                        <h4 style={{paddingTop:'2rem', fontStyle:'bold', paddingBottom:'1rem', textAlign:'center'}}>
                             All you patient health reports, audio transcripts and <br/>
                             meeting details in one place.
+                        </h4>
+                        <div style={{ textAlign:'center' }}>
+                            <img className="user-login-img" src="images/medical-app.png" alt="Health stickers created by Stickers - Flaticon"/>
                         </div>
                     </Column>
                 </Row>
