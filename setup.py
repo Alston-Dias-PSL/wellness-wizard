@@ -14,6 +14,11 @@ def get_db():
         if validate_db(DB_CONNECTION_STRING, DB_USERNAME, DB_PASSWORD):
             return DB_CONNECTION_STRING, DB_USERNAME, DB_PASSWORD
 
+def get_jwt_secret_key():
+    while True:
+        JWT_SECRET_KEY = input("Enter the JWT_SECRET_KEY: ")
+        return JWT_SECRET_KEY
+
 def validate_db(DB_CONNECTION_STRING, DB_USERNAME, DB_PASSWORD):
     print("====== Testing Database ======")
     try:
@@ -34,10 +39,12 @@ def intialise_database():
 
 def get_credentials():
     DB_CONNECTION_STRING, DB_USERNAME, DB_PASSWORD = get_db()
+    JWT_SECRET_KEY = get_jwt_secret_key()
     json_data = {
         "DB_CONNECTION_STRING": DB_CONNECTION_STRING,
         "DB_USERNAME": DB_USERNAME,
         "DB_PASSWORD": DB_PASSWORD,
+        "JWT_SECRET_KEY": JWT_SECRET_KEY
     }
     return json_data
 

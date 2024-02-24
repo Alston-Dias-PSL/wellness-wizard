@@ -26,7 +26,8 @@ except FileNotFoundError as fne:
     json_data = {
         "DB_CONNECTION_STRING": os.environ.get("db_connection_string", "http://localhost:5984"),
         "DB_USERNAME": os.environ.get("db_username", "semicolons"),
-        "DB_PASSWORD": os.environ.get("db_password", "alstondias")
+        "DB_PASSWORD": os.environ.get("db_password", "alstondias"),
+        "JWT_SECRET_KEY": os.environ.get("jwt_secret_key", "")
     }
 # Required Databased
 REQUIRED_DBS = {
