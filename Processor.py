@@ -1,12 +1,16 @@
 from lib.UserInfo import UserInfoProcessor
 from lib.DatabaseWrapper import DatabaseWrapper
 from lib.JWTProcessor import JWTProcessor
+from lib.PdfProcessor import PdfProcessor
+from lib.AudioProcessor import AudioProessor
 
 class Processor:
     def __init__(self):
         self.user_info =  UserInfoProcessor()
         self.databse_wrapper = DatabaseWrapper()
         self.jwt_processor = JWTProcessor()
+        self.pdf_processor = PdfProcessor()
+        self.audio_processor = AudioProessor()
 
     def create_user(self,first_name, last_name, address_line1, city, state, country, pincode, username, password,  email, contact_number):
         return self.user_info.create_user(
@@ -37,4 +41,10 @@ class Processor:
     
     def validate_jwt_token(self, token):
         return self.jwt_processor.validate_jwt_token(token=token)
+    
+    def read_pdf(self, file_path: str):
+        return self.pdf_processor.read_pdf(file_path=file_path)
+    
+    def get_text_from_audio(self, audio_data):
+        return self.audio_processor.get_text_from_audio(audio_data=audio_data)
     
