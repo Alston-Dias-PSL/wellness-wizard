@@ -6,10 +6,12 @@ import typing
 from hashlib import sha256
 import datetime
 import json
+import os
 from typing import List
 import tempfile
 from pydub import AudioSegment
 from pyAudioAnalysis import audioSegmentation as aS
+from lib.ca_config import DEFAULT_TEXT_TO_PDF_LLM
 
 from fastapi import FastAPI, File, UploadFile, BackgroundTasks, Form, Request, Response, HTTPException
 from fastapi.responses import FileResponse, RedirectResponse, JSONResponse, HTMLResponse
@@ -140,5 +142,27 @@ async def upload_audio(token, audio_file: UploadFile = File(...)):
         # text = processor.get_text_from_audio(audio_data=temp_file_name)
         return {"transcriptions": transcriptions}
         # return text
+    else:
+        raise HTTPException(status_code=401, detail="Access token expired. please re-login to continue")
+
+@app.post("/generate-report-summary/")
+async def generate_report_summary(token, files: List[UploadFile] = File(...)):
+    if processor.validate_jwt_token(token):
+        uploaded_file = files[0]
+    
+        # Save the uploaded file temporarily
+        with open(uploaded_file.filename, "wb") as file:
+            file.write(uploaded_file.file.read())
+    
+        # Read the PDF content
+        pdf_text = processor.read_pdf(file_path=uploaded_file.filename)
+        os.remove(uploaded_file.filename)
+        # pdf_text = pdf_text.replace("\n", " ")
+        new_pdf_text = DEFAULT_TEXT_TO_PDF_LLM + pdf_text
+        response = processor.generate_report_summary(text=new_pdf_text)
+        return {
+            "summary": response,
+            "pdf_text": pdf_text
+        }
     else:
         raise HTTPException(status_code=401, detail="Access token expired. please re-login to continue")

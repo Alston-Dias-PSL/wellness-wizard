@@ -3,6 +3,7 @@ from lib.DatabaseWrapper import DatabaseWrapper
 from lib.JWTProcessor import JWTProcessor
 from lib.PdfProcessor import PdfProcessor
 from lib.AudioProcessor import AudioProessor
+from lib.LLMProcessor import LLMProcessor
 
 class Processor:
     def __init__(self):
@@ -11,6 +12,7 @@ class Processor:
         self.jwt_processor = JWTProcessor()
         self.pdf_processor = PdfProcessor()
         self.audio_processor = AudioProessor()
+        self.llm_processor = LLMProcessor()
 
     def create_user(self,first_name, last_name, address_line1, city, state, country, pincode, username, password,  email, contact_number):
         return self.user_info.create_user(
@@ -47,4 +49,7 @@ class Processor:
     
     def get_text_from_audio(self, audio_data):
         return self.audio_processor.get_text_from_audio(audio_data=audio_data)
+    
+    def generate_report_summary(self, text):
+        return self.llm_processor.generate_report_summary(text=text)
     
