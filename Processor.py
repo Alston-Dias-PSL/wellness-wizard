@@ -53,3 +53,9 @@ class Processor:
     def generate_report_summary(self, text):
         return self.llm_processor.generate_report_summary(text=text)
     
+    def get_transcript_from_text(self,text):
+        return self.audio_processor.get_transcript_from_text(text=text)
+    
+    def generate_transcript_summary(self, text):
+        return self.audio_processor.generate_transcript_summary(text=text)
+    
