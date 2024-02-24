@@ -2,7 +2,7 @@
     padding: 2rem;
     padding-top: 6rem;
 }
-.align-upload-center, .cds--file__drop-container{
+/*.align-upload-center, .cds--file__drop-container{
     align-items: center;
 }
 .cds--file{
@@ -10,4 +10,10 @@
 }
 .file-location{
     align-items: center;
+}*/
+.cursor {
+    display: inline-block;
+    width: 1ch;
+    animation: flicker 0.5s infinite;
+    margin-bottom: 4px;
 }
