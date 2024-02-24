@@ -13,6 +13,7 @@ import DiseaseCategorizer from './components/DiseaseCategorizer/DiseaseCategoriz
 
 function App() {
     const [globaltheme,setGlobaltheme] = useState('g100');
+    const [cookies, setCookie, removeCookie] = useCookies(['session_key', 'username'])
 
     useEffect(() => {
         document.documentElement.dataset.carbonTheme = globaltheme;
@@ -31,12 +32,12 @@ function App() {
         <GlobalTheme theme={globaltheme}>
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<NavBar setTheme={setTheme}/>}>
-                    <Route index element={<UserLogin/>} />
+                <Route path="/" element={<NavBar setTheme={setTheme}  />}>
+                    <Route index element={<UserLogin cookies={cookies} setCookie={setCookie} removeCookie={removeCookie} />} />
                     <Route path='/login' element={<UserLogin/>} />
                     <Route path='/signup'element={<Signup/>}/>
                     <Route path='/profile' element={<Profile/>}/>
-                    <Route path='/report-summary' element={<ReportSummary/>} />
+                    <Route path='/report-summary' element={<ReportSummary cookies={cookies}/>} />
                     <Route path='/disease-categorizer' element={<DiseaseCategorizer/>} />
                 </Route>
             </Routes>
