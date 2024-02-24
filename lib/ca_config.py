@@ -53,3 +53,11 @@ SEMICOLONS_GATEWAY_BASE_URL = json_data["SEMICOLONS_GATEWAY_BASE_URL"]
 MODEL = "gpt-35-turbo-16k"
 DEFAULT_TEXT_TO_PDF_LLM = """ Give me a summarized report for the following blood report and also give potential risks for the patient 
 """
+
+DEFAULT_TEXT_TO_TRANSCRIPT_LLM1 = """Generate a transcript for the following text conversation between a doctor and patient
+Text:
+"""
+DEFAULT_TEXT_TO_TRANSCRIPT_LLM2 = """Give the Transcript in the format :
+Patient: Dialogue1
+Doctor:Dialogue2
+Patient:Dialogue3"""

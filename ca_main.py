@@ -11,7 +11,7 @@ from typing import List
 import tempfile
 from pydub import AudioSegment
 from pyAudioAnalysis import audioSegmentation as aS
-from lib.ca_config import DEFAULT_TEXT_TO_PDF_LLM
+from lib.ca_config import DEFAULT_TEXT_TO_PDF_LLM , DEFAULT_TEXT_TO_TRANSCRIPT_LLM1, DEFAULT_TEXT_TO_TRANSCRIPT_LLM2
 
 from fastapi import FastAPI, File, UploadFile, BackgroundTasks, Form, Request, Response, HTTPException
 from fastapi.responses import FileResponse, RedirectResponse, JSONResponse, HTMLResponse
@@ -127,7 +127,11 @@ async def upload_audio(token, audio_file: UploadFile = File(...)):
             temp_file_name = temp_wav_file_name
         
         text = processor.get_text_from_audio(audio_data=temp_file_name)
-        return text
+        prompt_input=DEFAULT_TEXT_TO_TRANSCRIPT_LLM1 + text + DEFAULT_TEXT_TO_TRANSCRIPT_LLM2
+        transcript=processor.get_transcript_from_text(prompt_input)
+        return {
+            "transcript": transcript,
+        }
     
     else:
         raise HTTPException(status_code=401, detail="Access token expired. please re-login to continue")
