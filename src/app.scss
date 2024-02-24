@@ -11,6 +11,7 @@
 @use './components/Profile/profile';
 @use './components/DiseaseCategorizer/disease-categorizer';
 @use './components/Doctor/doctor';
+@use './components/Disease/disease';
 
 :root[data-carbon-theme="g10"] {
     @include theme.theme(themes.$g10);
