@@ -33,8 +33,8 @@ function App() {
         <GlobalTheme theme={globaltheme}>
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<NavBar setTheme={setTheme}/>}>
-                    <Route index element={<UserLogin/>} />
+                <Route path="/" element={<NavBar setTheme={setTheme}  />}>
+                    <Route index element={<UserLogin cookies={cookies} setCookie={setCookie} removeCookie={removeCookie} />} />
                     <Route path='/login' element={<UserLogin/>} />
                     <Route path='/signup'element={<Signup/>}/>
                     <Route path='/profile' element={<Profile/>}/>

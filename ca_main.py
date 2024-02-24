@@ -11,7 +11,7 @@ from typing import List
 import tempfile
 from pydub import AudioSegment
 from pyAudioAnalysis import audioSegmentation as aS
-from lib.ca_config import DEFAULT_TEXT_TO_PDF_LLM
+from lib.ca_config import DEFAULT_TEXT_TO_PDF_LLM , DEFAULT_TEXT_TO_TRANSCRIPT_LLM1, DEFAULT_TEXT_TO_TRANSCRIPT_LLM2, DEFAULT_TEXT_TO_AUDIO_LLM
 
 from fastapi import FastAPI, File, UploadFile, BackgroundTasks, Form, Request, Response, HTTPException
 from fastapi.responses import FileResponse, RedirectResponse, JSONResponse, HTMLResponse
@@ -25,8 +25,8 @@ from lib.SessionManagement import SessioManagement
 from lib.ca_config import ip_address, DEFAULT_SERVER_PORT, DEFAULT_UI_PORT
 
 CORS_ORIGINS = [
-    "http://locahost:{}".format(DEFAULT_UI_PORT),
-    "https://locahost:{}".format(DEFAULT_UI_PORT),
+    "http://locahost:{}/".format(DEFAULT_UI_PORT),
+    "https://locahost:{}/".format(DEFAULT_UI_PORT),
     "https://{}/{}".format(ip_address,DEFAULT_UI_PORT),
     "http://{}/{}".format(ip_address, DEFAULT_UI_PORT),
     "https://{}/{}".format(ip_address,DEFAULT_SERVER_PORT),
@@ -40,7 +40,7 @@ session_management = SessioManagement()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=CORS_ORIGINS,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
@@ -69,13 +69,15 @@ def create_user(first_name, last_name, address_line1, city, state, country, pinc
         contact_number=contact_number
     )
 
-@app.get("/user-login/")
+@app.post("/user-login/")
 def user_login(username, password):
     user_session = processor.user_login(username=username, password=password)
     if user_session:
         session_management.update_session_info(session_data=user_session)
+        print("access_token: ", user_session["access_token"])
         return{
-            "access_token": user_session["access_token"]
+            "access_token": user_session["access_token"],
+            "username": user_session["username"]
         } 
     else:
         raise HTTPException(status_code=404, detail="Invalid Creds")
@@ -127,7 +129,15 @@ async def upload_audio(token, audio_file: UploadFile = File(...)):
             temp_file_name = temp_wav_file_name
         
         text = processor.get_text_from_audio(audio_data=temp_file_name)
-        return text
+        prompt_input=DEFAULT_TEXT_TO_TRANSCRIPT_LLM1 + text["text"] + DEFAULT_TEXT_TO_TRANSCRIPT_LLM2
+        transcript=processor.get_transcript_from_text(text=prompt_input)
+        os.remove(temp_file_name)
+        transcript_new = DEFAULT_TEXT_TO_AUDIO_LLM + transcript.choices[0].message.content
+        summary = processor.generate_transcript_summary(text=transcript_new)
+        return {
+            "transcript": transcript.choices[0].message.content, 
+            "summary": summary.choices[0].message.content
+        }
     
     else:
         raise HTTPException(status_code=401, detail="Access token expired. please re-login to continue")
@@ -148,7 +158,7 @@ async def generate_report_summary(token, files: List[UploadFile] = File(...)):
         new_pdf_text = DEFAULT_TEXT_TO_PDF_LLM + pdf_text
         response = processor.generate_report_summary(text=new_pdf_text)
         return {
-            "summary": response,
+            "summary": response.choices[0].message.content,
             "pdf_text": pdf_text
         }
     else:

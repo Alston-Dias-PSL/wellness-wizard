@@ -2,7 +2,7 @@ import { Button, Column, FlexGrid, Form, InlineLoading, InlineNotification, Row,
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function UserLogin() {
+export default function UserLogin({cookies, setCookie, removeCookie}) {
     const navigate = useNavigate();
     const [userID, setUserID] = useState('');
     const [password, setPassword] = useState('');
@@ -18,6 +18,24 @@ export default function UserLogin() {
         setAriaLive('assertive');
         console.log("ID..",userID);
         console.log("password...",password);
+        fetch(`http://localhost:8000/user-login/?username=${userID}&password=${password}`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+            },
+            mode: 'cors',
+        }).then(async response => {
+            if (response.status === 200) {
+                const data = await response.json()
+                setCookie('session_key', data.access_token)
+                setCookie('username', data.username)
+                navigate('/profile');
+            } else {
+                setIsSubmitting(false);
+                setStatus('inactive');
+                setDescription('Login failed');
+            }
+        })
     }
 
     return(
