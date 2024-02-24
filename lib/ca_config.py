@@ -28,10 +28,8 @@ except FileNotFoundError as fne:
         "DB_USERNAME": os.environ.get("db_username", "semicolons"),
         "DB_PASSWORD": os.environ.get("db_password", "alstondias"),
         "JWT_SECRET_KEY": os.environ.get("jwt_secret_key", ""),
-        "WATSONX_API_KEY": os.environ.get("watsonx_api_key", ""),
-        "WATSONX_URL": os.environ.get("watsonx_url", ""),
-        "PROJECT_ID": os.environ.get("project_id", ""),
-        "SPACE_ID": os.environ.get("space_id", "")
+        "SEMICOLONS_GATEWAY_API_KEY": os.environ.get("semicolons_gateway_api_key", ""),
+        "SEMICOLONS_GATEWAY_BASE_URL": os.environ.get("semicolons_gateway_base_url", ""),
     }
 # Required Databased
 REQUIRED_DBS = {
@@ -50,9 +48,8 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRES_IN = 24
 
 #LLM configuration
-PROJECT_ID = json_data["PROJECT_ID"]
-SPACE_ID = json_data["SPACE_ID"]
-WATSONX_API_KEY = json_data["WATSONX_API_KEY"]
-WATSONX_URL = json_data["WATSONX_URL"]
+SEMICOLONS_GATEWAY_API_KEY = json_data["SEMICOLONS_GATEWAY_API_KEY"]
+SEMICOLONS_GATEWAY_BASE_URL = json_data["SEMICOLONS_GATEWAY_BASE_URL"]
+MODEL = "gpt-35-turbo-16k"
 DEFAULT_TEXT_TO_PDF_LLM = """ Give me a summarized report for the following blood report and also give potential risks for the patient 
 """
