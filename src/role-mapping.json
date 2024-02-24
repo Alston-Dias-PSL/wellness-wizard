@@ -1,0 +1,34 @@
+[
+    {
+        "role": "patient",
+        "ui_routes": [
+            "login",
+            "signup",
+            "disease-categorizer"
+        ]
+    },
+    {
+        "role": "doctor",
+        "ui_routes": [
+            "login",
+            "signup",
+            "disease-categorizer"
+        ]
+    },
+    {
+        "role": "staff",
+        "ui_routes": [
+            "login",
+            "signup",
+            "disease-categorizer"
+        ]
+    },
+    {
+        "role": "admin",
+        "ui_routes": [
+            "login",
+            "signup",
+            "disease-categorizer"
+        ]
+    }
+]
