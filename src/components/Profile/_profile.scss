@@ -1,10 +1,22 @@
 .profile-padding{
     padding: 2rem;
     padding-top: 6rem;
+    background-image: url('./syringe-1884784_1280.jpg');
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
 }
+/*.profile-img{
+    //background-image: url('./syringe-1884784_1280.jpg');
+    background-size: cover;
+}*/
+
 .profile-img{
     background-image: url('./syringe-1884784_1280.jpg');
 }
+
 .column1{
     background-color: #dbebff;
     color: black;
