@@ -1,6 +1,11 @@
 .user-login-padding{
-    padding: 2rem;
+    padding: 8rem;
     padding-top: 6rem;
+    background: url('./pexels-pixabay-40568.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
 }
 
 .login-form{
@@ -9,4 +14,16 @@
 
 .user-login-img{
     width: 20rem;
+}
+
+.signup-column{
+    background-color: cadetblue;
+}
+
+.main-row{
+    background-color: cadetblue;
+    padding: 1rem
+}
+.verticle-line{
+    border-right: 1px solid white;
 }

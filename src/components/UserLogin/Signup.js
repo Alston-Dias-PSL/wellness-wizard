@@ -24,8 +24,8 @@ export default function Signup(){
     }
     return(
         <div className="user-login-padding">
-            <Grid>
-            <Column md={8}>   
+            <Grid className='main-row'>
+            <Column lg={8} className='signup-column verticle-line' >   
             <Form className='login-form' onSubmit={HandleSignup}>
                 <Stack gap={7}>
                     <div>
@@ -79,6 +79,15 @@ export default function Signup(){
                     }
                 </Stack>
             </Form>
+            </Column>
+            <Column lg={8}>
+                <h4 style={{paddingTop:'2rem', fontStyle:'bold', paddingBottom:'1rem', textAlign:'center'}}>
+                    All you patient health reports, audio transcripts and <br/>
+                    meeting details in one place.
+                </h4>
+                    <div style={{ textAlign:'center', paddingTop:'2rem' }}>
+                    <img className="user-login-img" src="images/ehr-1476525_1280.png" alt="Health stickers created by Stickers - Flaticon"/>
+                </div>
             </Column>
             </Grid>
         </div>
