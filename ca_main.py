@@ -25,8 +25,8 @@ from lib.SessionManagement import SessioManagement
 from lib.ca_config import ip_address, DEFAULT_SERVER_PORT, DEFAULT_UI_PORT
 
 CORS_ORIGINS = [
-    "http://locahost:{}".format(DEFAULT_UI_PORT),
-    "https://locahost:{}".format(DEFAULT_UI_PORT),
+    "http://locahost:{}/".format(DEFAULT_UI_PORT),
+    "https://locahost:{}/".format(DEFAULT_UI_PORT),
     "https://{}/{}".format(ip_address,DEFAULT_UI_PORT),
     "http://{}/{}".format(ip_address, DEFAULT_UI_PORT),
     "https://{}/{}".format(ip_address,DEFAULT_SERVER_PORT),
@@ -40,7 +40,7 @@ session_management = SessioManagement()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=CORS_ORIGINS,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
@@ -69,13 +69,15 @@ def create_user(first_name, last_name, address_line1, city, state, country, pinc
         contact_number=contact_number
     )
 
-@app.get("/user-login/")
+@app.post("/user-login/")
 def user_login(username, password):
     user_session = processor.user_login(username=username, password=password)
     if user_session:
         session_management.update_session_info(session_data=user_session)
+        print("access_token: ", user_session["access_token"])
         return{
-            "access_token": user_session["access_token"]
+            "access_token": user_session["access_token"],
+            "username": user_session["username"]
         } 
     else:
         raise HTTPException(status_code=404, detail="Invalid Creds")

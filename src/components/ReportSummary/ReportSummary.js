@@ -19,11 +19,12 @@ Family History:\
 Father: Hypertension Mother: Type 2 diabetes No family history of neurological disorders\
 Social History: Mr. Doe is a non-smoker and consumes alcohol occasionally. He denies any recreational drug use. He is married with two children and works as an accountant."
 
-export default function ReportSummary() {
+export default function ReportSummary(cookies) {
     const [file, setFile] = useState(null);
     const [chatHistory, setChatHistory] = useState('Uppload a pdf or audio file of your medical report to get the summary.')
     const [ uploadedFileContent, setUploadFileContent ] = useState('');
     const [ isFileUploaded, setIsFileUploaded ] = useState(false);
+    console.log(cookies)
 
     const ReturnResponse = ({response}) => {
         const [displayResponse, setDisplayResponse] = useState("");
