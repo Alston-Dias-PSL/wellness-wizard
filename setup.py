@@ -19,13 +19,11 @@ def get_jwt_secret_key():
         JWT_SECRET_KEY = input("Enter the JWT_SECRET_KEY: ")
         return JWT_SECRET_KEY
 
-def get_watsonx_info():
+def get_open_ai():
     while True:
-        WATSONX_API_KEY = input("Enter WatsonX API Key: ")
-        WATSONX_URL = input("Enter WatsonX URL: ")
-        PROJECT_ID = input("Enter WatsonX Project ID: ")
-        SPACE_ID = input("Enter WatsonX Space ID: ")
-        return WATSONX_API_KEY, WATSONX_URL, PROJECT_ID, SPACE_ID
+        SEMICOLONS_GATEWAY_API_KEY = input("Enter Gateway API Key: ")
+        SEMICOLONS_GATEWAY_BASE_URL = input("Enter Gateway Base URL: ")
+        return SEMICOLONS_GATEWAY_BASE_URL, SEMICOLONS_GATEWAY_API_KEY
 
 def validate_db(DB_CONNECTION_STRING, DB_USERNAME, DB_PASSWORD):
     print("====== Testing Database ======")
@@ -48,16 +46,14 @@ def intialise_database():
 def get_credentials():
     DB_CONNECTION_STRING, DB_USERNAME, DB_PASSWORD = get_db()
     JWT_SECRET_KEY = get_jwt_secret_key()
-    WATSONX_API_KEY, WATSONX_URL, PROJECT_ID, SPACE_ID = get_watsonx_info()
+    SEMICOLONS_GATEWAY_API_KEY, SEMICOLONS_GATEWAY_BASE_URL = get_open_ai()
     json_data = {
         "DB_CONNECTION_STRING": DB_CONNECTION_STRING,
         "DB_USERNAME": DB_USERNAME,
         "DB_PASSWORD": DB_PASSWORD,
         "JWT_SECRET_KEY": JWT_SECRET_KEY,
-        "WATSONX_API_KEY": WATSONX_API_KEY,
-        "WATSONX_URL": WATSONX_URL,
-        "PROJECT_ID": PROJECT_ID,
-        "SPACE_ID": SPACE_ID
+        "SEMICOLONS_GATEWAY_API_KEY": SEMICOLONS_GATEWAY_API_KEY,
+        "SEMICOLONS_GATEWAY_BASE_URL": SEMICOLONS_GATEWAY_BASE_URL
     }
     return json_data
 
