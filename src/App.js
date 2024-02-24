@@ -1,6 +1,6 @@
 import './app.scss';
 import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
-import { useCookies } from 'react-cookie';
+import { useCookies} from 'react-cookie';
 import { useEffect, useState } from 'react';
 import { Theme, GlobalTheme } from '@carbon/react';
 
