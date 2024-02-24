@@ -26,7 +26,10 @@ except FileNotFoundError as fne:
     json_data = {
         "DB_CONNECTION_STRING": os.environ.get("db_connection_string", "http://localhost:5984"),
         "DB_USERNAME": os.environ.get("db_username", "semicolons"),
-        "DB_PASSWORD": os.environ.get("db_password", "alstondias")
+        "DB_PASSWORD": os.environ.get("db_password", "alstondias"),
+        "JWT_SECRET_KEY": os.environ.get("jwt_secret_key", ""),
+        "SEMICOLONS_GATEWAY_API_KEY": os.environ.get("semicolons_gateway_api_key", ""),
+        "SEMICOLONS_GATEWAY_BASE_URL": os.environ.get("semicolons_gateway_base_url", ""),
     }
 # Required Databased
 REQUIRED_DBS = {
@@ -43,3 +46,10 @@ DB_PASSWORD = json_data["DB_PASSWORD"]
 JWT_SECRET_KEY = json_data["JWT_SECRET_KEY"]
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRES_IN = 24
+
+#LLM configuration
+SEMICOLONS_GATEWAY_API_KEY = json_data["SEMICOLONS_GATEWAY_API_KEY"]
+SEMICOLONS_GATEWAY_BASE_URL = json_data["SEMICOLONS_GATEWAY_BASE_URL"]
+MODEL = "gpt-35-turbo-16k"
+DEFAULT_TEXT_TO_PDF_LLM = """ Give me a summarized report for the following blood report and also give potential risks for the patient 
+"""

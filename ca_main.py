@@ -6,6 +6,12 @@ import typing
 from hashlib import sha256
 import datetime
 import json
+import os
+from typing import List
+import tempfile
+from pydub import AudioSegment
+from pyAudioAnalysis import audioSegmentation as aS
+from lib.ca_config import DEFAULT_TEXT_TO_PDF_LLM
 
 from fastapi import FastAPI, File, UploadFile, BackgroundTasks, Form, Request, Response, HTTPException
 from fastapi.responses import FileResponse, RedirectResponse, JSONResponse, HTMLResponse
@@ -83,6 +89,67 @@ def get_users(token):
     else:
         raise HTTPException(status_code=401, detail="Access token expired. please re-login to continue")
     
+@app.post("/upload-pdf/")
+async def upload_pdf(token, files: List[UploadFile] = File(...)):
+    if processor.validate_jwt_token(token):
+        # Assuming the user uploads a single PDF file
+        uploaded_file = files[0]
+    
+        # Save the uploaded file temporarily
+        with open(uploaded_file.filename, "wb") as file:
+            file.write(uploaded_file.file.read())
+    
+        # Read the PDF content
+        pdf_text = processor.read_pdf(file_path=uploaded_file.filename)
+        pdf_text = pdf_text.replace("\n", " ")
+    
+        return {"filename": uploaded_file.filename, "text": pdf_text}
+    else:
+        raise HTTPException(status_code=401, detail="Access token expired. please re-login to continue")
 
+@app.post("/upload-audio/")
+async def upload_audio(token, audio_file: UploadFile = File(...)):
+    if processor.validate_jwt_token(token):
+        if not audio_file.filename.endswith((".wav", ".mp3", ".m4a")):
+            raise HTTPException(status_code=400, detail="Invalid audio file format")
+        audio_data = await audio_file.read()
 
-   
+        # Save audio data to a temporary file.
+        with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+            temp_file.write(audio_data)
+            temp_file_name = temp_file.name
+
+        #converting the .mp3 file to text ".wav"
+        if audio_file.filename.endswith((".mp3", ".m4a")):
+            audio = AudioSegment.from_file(temp_file_name)
+            temp_wav_file_name = temp_file_name.replace(".mp3", ".wav").replace(".m4a", ".wav")
+            audio.export(temp_wav_file_name, format="wav")
+            temp_file_name = temp_wav_file_name
+        
+        text = processor.get_text_from_audio(audio_data=temp_file_name)
+        return text
+    
+    else:
+        raise HTTPException(status_code=401, detail="Access token expired. please re-login to continue")
+
+@app.post("/generate-report-summary/")
+async def generate_report_summary(token, files: List[UploadFile] = File(...)):
+    if processor.validate_jwt_token(token):
+        uploaded_file = files[0]
+    
+        # Save the uploaded file temporarily
+        with open(uploaded_file.filename, "wb") as file:
+            file.write(uploaded_file.file.read())
+    
+        # Read the PDF content
+        pdf_text = processor.read_pdf(file_path=uploaded_file.filename)
+        os.remove(uploaded_file.filename)
+        # pdf_text = pdf_text.replace("\n", " ")
+        new_pdf_text = DEFAULT_TEXT_TO_PDF_LLM + pdf_text
+        response = processor.generate_report_summary(text=new_pdf_text)
+        return {
+            "summary": response,
+            "pdf_text": pdf_text
+        }
+    else:
+        raise HTTPException(status_code=401, detail="Access token expired. please re-login to continue")

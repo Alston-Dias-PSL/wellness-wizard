@@ -105,7 +105,6 @@ export default function ReportSummary() {
             </div>
             </Column>
             </Grid>
-            
         </div>
     )
 }
