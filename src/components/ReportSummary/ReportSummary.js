@@ -29,7 +29,7 @@ import { useState, useEffect } from "react";
 export default function ReportSummary(cookies) {
   const [file, setFile] = useState(null);
   const [chatHistory, setChatHistory] = useState(
-    "Uppload a pdf or audio file of your medical report to get the summary."
+    "Upload a pdf or audio file of your medical report to get the summary."
   );
   const [uploadedFileContent, setUploadFileContent] = useState("");
   const [isFileUploaded, setIsFileUploaded] = useState(false);
@@ -68,7 +68,7 @@ export default function ReportSummary(cookies) {
     if (file.name.endsWith("pdf")) {
       const API_NAME = "generate-report-summary";
 
-      fetch(`http://localhost:8000/${API_NAME}/?token=${cookies.cookies['session_key']}`, {
+      fetch(`http://localhost:8000/${API_NAME}/?token=${cookies.cookie['session_key']}`, {
         method: "POST",
         body: formData,
       })
@@ -90,9 +90,6 @@ export default function ReportSummary(cookies) {
       const API_NAME = "upload-audio";
       fetch(`http://localhost:8000/${API_NAME}`, {
         method: "POST",
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
         body: formData,
       })
         .then((response) => {
