@@ -16,6 +16,7 @@ import AboutUs from './components/AboutUs/AboutUs';
 function App() {
     const [globaltheme,setGlobaltheme] = useState('white');
     const [ isLogin, setIsLogin] = useState(true);
+    const [cookies, setCookie, removeCookie] = useCookies()
     useEffect(() => {
         document.documentElement.dataset.carbonTheme = globaltheme;
     }, [globaltheme]);
@@ -38,7 +39,7 @@ function App() {
                     <Route path='/login' element={<UserLogin/>} />
                     <Route path='/signup'element={<Signup/>}/>
                     <Route path='/profile' element={<Profile/>}/>
-                    <Route path='/report-summary' element={<ReportSummary/>} />
+                    <Route path='/report-summary' element={<ReportSummary cookie={cookies}/>} />
                     <Route path='/disease-categorizer' element={<DiseaseCategorizer/>} />
                     <Route path='/medicine-stock' element={<MedicineStock/>} />
                     <Route path='/about-us' element={<AboutUs/>} />
