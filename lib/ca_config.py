@@ -52,8 +52,13 @@ SEMICOLONS_GATEWAY_API_KEY = json_data["SEMICOLONS_GATEWAY_API_KEY"]
 SEMICOLONS_GATEWAY_BASE_URL = json_data["SEMICOLONS_GATEWAY_BASE_URL"]
 MODEL = "gpt-35-turbo-16k"
 AUDIO_MODEL = "gpt-4-turbo"
-DEFAULT_TEXT_TO_PDF_LLM = """ Give me a summarized report for the following blood report and also give potential risks for the patient 
+DEFAULT_TEXT_TO_PDF_LLM = """ Give out following for the text given 
+1. summarized report for the following blood report  
+2. potential risks for the patient. 
+3. list for medicines for the desease and when the respective medicines need to be taken 
+4. suggest the precautions that need to be take to cure disease.
 """
+
 DEFAULT_TEXT_TO_AUDIO_LLM = """Give me a summarized report for the following text conversation between a doctor and patient"""
 
 DEFAULT_TEXT_TO_TRANSCRIPT_LLM1 = """Generate a transcript for the following text conversation between a doctor and patient

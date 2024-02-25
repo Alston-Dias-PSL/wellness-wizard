@@ -92,10 +92,10 @@ def get_users(token):
         raise HTTPException(status_code=401, detail="Access token expired. please re-login to continue")
     
 @app.post("/upload-pdf/")
-async def upload_pdf(token, files: List[UploadFile] = File(...)):
+async def upload_pdf(token, file: UploadFile = File(...)):
     if processor.validate_jwt_token(token):
         # Assuming the user uploads a single PDF file
-        uploaded_file = files[0]
+        uploaded_file = await file
     
         # Save the uploaded file temporarily
         with open(uploaded_file.filename, "wb") as file:
