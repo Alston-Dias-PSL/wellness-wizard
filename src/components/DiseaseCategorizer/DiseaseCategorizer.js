@@ -5,54 +5,37 @@ import Disease from "../Disease/Disease";
 
 export default function DiseaseCategorizer() {
 
-    const items = ['a', 'b', 'c'];
-    const [dp, setDp] = useState('none');
+    const items = ['Cough', 'Wheeze', 'Labored breathing'];
+    const [dp, setDp] = useState(false);
 
     const handleSubmit = (e) => {
-        setDp('true');
+        setDp(true);
     }
-
-
+    
     return (
-        <div className="categorizer-padding">
-          
-            <Grid>
+        <div className="categorizer-padding"> 
+            <h3>Disease categorizer</h3>
+                <div style={{paddingBottom:'1rem'}}> 
+                    <div>
+                    <MultiSelect label="Add symptoms for diagnosis" id="carbon-multiselect-example" items={items} selectionFeedback="top-after-reopen" />
+                    </div>
+                    <div style={{paddingTop:'1rem'}}>
+                    <Button size="md" onClick={handleSubmit}>Diagnose</Button>
+                    </div>                       
+                </div>
+                {dp &&
+                <Grid narrow>
+                <Column lg={8}>
+                    <Disease dname="Respiratory Infection"/>
+                </Column>
+                <Column lg={8}>
+                    <h3 style={{color:'black'}}>Doctors available for consultation</h3>
+                    <Doctor name="Dr Pritam " spec="ENT"/>
+                    <Doctor name="Dr Alston " spec="Ortho"/>
+                </Column>
+                </Grid>
+                }
                 
-                    <Column lg={16}>
-
-                        <div className="category-row">
-                           
-                            
-                            <MultiSelect label="Add symptoms for diagnosis" id="carbon-multiselect-example" items={items} selectionFeedback="top-after-reopen" />
-                              
-                              <Button className="s-bt" size="md" onClick={handleSubmit}>Diagnose</Button>              
-                           
-                                
-                            
-
-                        </div>
-
-
-                    </Column>
-            </Grid>
-
-            <Grid className="bottom-div">
-                
-
-              
-                    {dp == 'true' &&
-<Disease dname="Respiratory Infection"></Disease>
-                    }
-                    {dp == 'true' &&
-                        <Column className="col-bottom" style={{ display: { dp } }} lg={8}>
-                            <h3>Doctors available for consultation</h3>
-                            <Doctor name="Dr Pritam " spec="ENT"></Doctor>
-                            <Doctor name="Dr Alston " spec="Ortho"></Doctor>
-                        </Column>
-                    }
-               
-
-            </Grid>
         </div>
     )
 }

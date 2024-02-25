@@ -7,12 +7,16 @@ export default function Disease(props) {
 
     return (
         <Column className="col-bottom" lg={8}>
-        <h4> <u>{props.dname}</u></h4>
-        <h2>Respiratory Infection</h2>
+        <div style={{display:'inline-flex', alignItems:'center', paddingBottom:'1rem'}}><h6>{props.dname}:</h6> <h3 style={{color:'black'}}>Respiratory Infection</h3></div>   
         <div className="d-border">
-        <img className="pic-style" src="images/disease.jpeg" width="150" height="150"></img>
-        <p className="d-border">
-       Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>                 
+        <p className="d-border" style={{color:'black'}} >
+        Based on the symptoms you provided, 
+        it's indicative of a respiratory condition commonly associated with asthma. 
+        Asthma is a chronic inflammatory disorder of the airways characterized by episodes of wheezing, 
+        breathlessness, chest tightness, and coughing, especially at night or early morning. 
+        It's often triggered by factors such as allergens, exercise, cold air, or respiratory infections. 
+        Proper diagnosis and management by a healthcare professional are crucial for effectively managing asthma symptoms and preventing exacerbations.              
+        </p>
         </div>
     </Column>
     )

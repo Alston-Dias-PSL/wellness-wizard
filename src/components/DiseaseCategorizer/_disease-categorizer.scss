@@ -1,6 +1,13 @@
 .categorizer-padding {
     padding: 2rem;
     padding-top: 6rem;
+    background-image: url('./pexels-pixabay-40568_blur.jpg');
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
 }
 
 .align-upload-center,
@@ -17,7 +24,14 @@
 }
 
 .d-border {
-    display:inline-flexbox;
+    color: black;
+    background-color: cadetblue;
+    display: inline-block;
+    border-radius: 15px 50px 30px;
+    /* background: #73AD21; */
+    padding: 20px;
+    width: fit-content;
+    height: max-content;
 }
 
 .category-row {
@@ -46,4 +60,8 @@
 
 .pic-style{
     border-radius: 25px;
+}
+
+.cds--list-box {
+    width: min-content;
 }

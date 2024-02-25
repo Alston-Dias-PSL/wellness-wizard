@@ -1,0 +1,57 @@
+.bodycss {
+    text-align: center;
+    font-family: Helvetica, sans-serif; /* Use a common font for better readability */
+    background-color: white;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-image: radial-gradient(aliceblue 5px, lightcyan 10px);
+    background-size: 50px 50px;
+}
+.dot-pattern {
+    background-image: radial-gradient(grey 2px, transparent 2px); /* Define the dot pattern */
+    background-size: 20px 20px; /* Adjust size of dots */
+}
+/* Style the main heading */
+h1 {
+    color: black; /* Dark grey color */
+    margin-top: 15px; /* Add some space above the heading */
+}
+/* Style the subheadings */
+h2 {
+    margin-top: 40px;
+    color: #666; /* Medium grey color */
+}
+.team-member p {
+    width: 100%; /* Ensure the h3 element spans the entire width of the div */
+    margin: 0; /* Remove any default margin */
+    color:black;
+    word-wrap: break-word; /* Allow the text to wrap onto the next line */
+    font-size:20px;
+}
+.team-member img{
+    width:100px;
+    height:100px;
+}
+/* Style the images */
+img {
+    border-radius: 50%; /* Make the images circular */
+    margin-bottom: 10px; /* Add some space below the image */
+    border: 4px solid #f0f0f0; /* Add a light grey border around each image */
+    transition: transform 0.3s ease-in-out; /* Add a smooth transition effect */
+}
+img:hover {
+    transform: scale(1.1); /* Scale up the image on hover */
+}
+/* Style the team member div */
+.team-member {
+    display: inline-block; /* Display divs horizontally */
+    width: 210px; /* Set a fixed width for each div */
+    margin: 15px; /* Add some space around each div */
+    margin-bottom: 10px; /* Add some space between team members */
+    padding: 20px; /* Add padding inside the div */
+    text-align: center; /* Center align the content */
+}
+.inline{
+    display: inline-block; 
+}
