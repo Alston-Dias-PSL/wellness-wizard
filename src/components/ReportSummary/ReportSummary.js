@@ -64,15 +64,12 @@ export default function ReportSummary(cookies) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("fileData", file);
+    formData.append("files", file);
     if (file.name.endsWith("pdf")) {
       const API_NAME = "generate-report-summary";
 
       fetch(`http://localhost:8000/${API_NAME}/?token=${cookies.cookies['session_key']}`, {
         method: "POST",
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
         body: formData,
       })
         .then((response) => {
