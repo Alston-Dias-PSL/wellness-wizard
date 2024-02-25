@@ -88,7 +88,7 @@ export default function ReportSummary(cookies) {
         });
     } else {
       const API_NAME = "upload-audio";
-      fetch(`http://localhost:8000/${API_NAME}`, {
+      fetch(`http://localhost:8000/${API_NAME}/?token=${cookies.cookie['session_key']}`, {
         method: "POST",
         body: formData,
       })
